@@ -3,25 +3,42 @@
 int string_matching_kmp(char *text, int N, char* pattern, int M){
 	int count = 0;
 	int *overlap_list = overlap_array(pattern, M);
-	printf("overlap function: ");
-	print_array(overlap_list,M);
-	
+	// printf("overlap function: ");
+	// print_array(overlap_list,M);
+	int i = 0;
+	int j = 0;
+	while (i < N) {
+		if (text[i] == pattern[j]) {
+			j++;
+			i++;
+		}
+		if (j == M) {
+			count++;
+			j = overlap_list[j - 1];
+		}
+		else if (text[i] != pattern[j]) {
+			if (j != 0)
+				j = overlap_list[j - 1];
+			else
+				i++;
+		}
+	}
 	//TODO - implement kmp search
 	free(overlap_list);
 	return count;
 }
 
 
- /*
-    General computation of an overlap function in linear time:
-    overlap function of position i is a length
-    of the longest suffix in substring pattern[0:i]
-    which is at the same time a prefix of pattern[0:i]
-    parameters - pattern: string to be preprocessed, M: pattern length
-    return: an array with the values of an overlap function for each pattern position
- */
+/*
+  General computation of an overlap function in linear time:
+  overlap function of position i is a length
+  of the longest suffix in substring pattern[0:i]
+  which is at the same time a prefix of pattern[0:i]
+  parameters - pattern: string to be preprocessed, M: pattern length
+  return: an array with the values of an overlap function for each pattern position
+*/
 int * overlap_array(char* pattern, int M){
-	int *ol_list = calloc(M, sizeof(int));    
+	int *ol_list = calloc(M, sizeof(int));
 
     int pos = 1;  // first is always zero
     while (pos < M){
