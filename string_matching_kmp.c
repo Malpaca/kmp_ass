@@ -11,16 +11,16 @@ int string_matching_kmp(char *text, int N, char* pattern, int M){
 		if (text[i] == pattern[j]) {
 			j++;
 			i++;
+			if (j == M) {
+				count++;
+				j = overlap_list[j - 1];
+			}
 		}
-		if (j == M) {
-			count++;
+		else if (j != 0){
 			j = overlap_list[j - 1];
 		}
-		else if (text[i] != pattern[j]) {
-			if (j != 0)
-				j = overlap_list[j - 1];
-			else
-				i++;
+		else{
+			i++;
 		}
 	}
 	//TODO - implement kmp search
