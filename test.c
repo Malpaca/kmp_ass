@@ -59,194 +59,6 @@ void performance_test(int iteration){
   printf("Generating performance data!\n");
 
   FILE *fp;
-  fp = fopen("csv/performance_CHAR_10.csv", "w+");
-  fprintf(fp,"N,Naive,KMP");
-
-  for (int N = 10000; N <= 1000000; N += 5000){
-    int M = 10;
-    double tmp = 0;
-    double naive = 0;
-
-    fprintf(fp,"\n%d",N);
-    for (int i = 0; i < iteration; i++){
-      char * text =  malloc(N+1);
-      for (int i = 0; i < N; i ++){
-        int pos = rand() % (int)(sizeof(charset) - 1);
-        text[i] = charset[pos];
-      }
-      text[N] = '\0';
-
-      char * pattern = malloc(M+1);
-      for (int j = 0; j < M; j ++){
-        int pos = rand() % (int)(sizeof(charset) - 1);
-        pattern[j] = charset[pos];
-      }
-      pattern[M] = '\0';
-
-      clock_t start, end;
-      start = clock();
-        string_matching_naive(text, N, pattern, M);
-      end = clock();
-      double time_naive = (double)(end-start) / CLOCKS_PER_SEC;
-
-      start = clock();
-        string_matching_kmp(text, N, pattern, M);
-      end = clock();
-      double time_kmp = (double)(end-start) / CLOCKS_PER_SEC;
-
-      naive += time_naive;
-      tmp += time_kmp;
-
-      free(text);
-      free(pattern);
-    }
-    naive = naive/iteration;
-    tmp = tmp/iteration;
-    fprintf(fp,",%f,%f",naive,tmp);
-  }
-  fclose(fp);
-
-  fp = fopen("csv/performance_ACGT_10.csv", "w+");
-  fprintf(fp,"N,Naive,KMP");
-
-  for (int N = 10000; N <= 1000000; N += 5000){
-    int M = 10;
-    double tmp = 0;
-    double naive = 0;
-
-    fprintf(fp,"\n%d",N);
-    for (int i = 0; i < iteration; i++){
-      char * text =  malloc(N+1);
-      for (int i = 0; i < N; i ++){
-        int pos = rand() % (int)(sizeof(charset2) - 1);
-        text[i] = charset2[pos];
-      }
-      text[N] = '\0';
-
-      char * pattern = malloc(M+1);
-      for (int j = 0; j < M; j ++){
-        int pos = rand() % (int)(sizeof(charset2) - 1);
-        pattern[j] = charset2[pos];
-      }
-      pattern[M] = '\0';
-
-      clock_t start, end;
-      start = clock();
-        string_matching_naive(text, N, pattern, M);
-      end = clock();
-      double time_naive = (double)(end-start) / CLOCKS_PER_SEC;
-
-      start = clock();
-        string_matching_kmp(text, N, pattern, M);
-      end = clock();
-      double time_kmp = (double)(end-start) / CLOCKS_PER_SEC;
-
-      naive += time_naive;
-      tmp += time_kmp;
-
-      free(text);
-      free(pattern);
-    }
-    naive = naive/iteration;
-    tmp = tmp/iteration;
-    fprintf(fp,",%f,%f",naive,tmp);
-  }
-  fclose(fp);
-
-  fp = fopen("csv/performance_CHAR_100.csv", "w+");
-  fprintf(fp,"N,Naive,KMP");
-
-  for (int N = 10000; N <= 1000000; N += 5000){
-    int M = 100;
-    double tmp = 0;
-    double naive = 0;
-
-    fprintf(fp,"\n%d",N);
-    for (int i = 0; i < iteration; i++){
-      char * text =  malloc(N+1);
-      for (int i = 0; i < N; i ++){
-        int pos = rand() % (int)(sizeof(charset) - 1);
-        text[i] = charset[pos];
-      }
-      text[N] = '\0';
-
-      char * pattern = malloc(M+1);
-      for (int j = 0; j < M; j ++){
-        int pos = rand() % (int)(sizeof(charset) - 1);
-        pattern[j] = charset[pos];
-      }
-      pattern[M] = '\0';
-
-      clock_t start, end;
-      start = clock();
-        string_matching_naive(text, N, pattern, M);
-      end = clock();
-      double time_naive = (double)(end-start) / CLOCKS_PER_SEC;
-
-      start = clock();
-        string_matching_kmp(text, N, pattern, M);
-      end = clock();
-      double time_kmp = (double)(end-start) / CLOCKS_PER_SEC;
-
-      naive += time_naive;
-      tmp += time_kmp;
-
-      free(text);
-      free(pattern);
-    }
-    naive = naive/iteration;
-    tmp = tmp/iteration;
-    fprintf(fp,",%f,%f",naive,tmp);
-  }
-  fclose(fp);
-
-  fp = fopen("csv/performance_ACGT_100.csv", "w+");
-  fprintf(fp,"N,Naive,KMP");
-
-  for (int N = 10000; N <= 1000000; N += 5000){
-    int M = 100;
-    double tmp = 0;
-    double naive = 0;
-
-    fprintf(fp,"\n%d",N);
-    for (int i = 0; i < iteration; i++){
-      char * text =  malloc(N+1);
-      for (int i = 0; i < N; i ++){
-        int pos = rand() % (int)(sizeof(charset2) - 1);
-        text[i] = charset2[pos];
-      }
-      text[N] = '\0';
-
-      char * pattern = malloc(M+1);
-      for (int j = 0; j < M; j ++){
-        int pos = rand() % (int)(sizeof(charset2) - 1);
-        pattern[j] = charset2[pos];
-      }
-      pattern[M] = '\0';
-
-      clock_t start, end;
-      start = clock();
-        string_matching_naive(text, N, pattern, M);
-      end = clock();
-      double time_naive = (double)(end-start) / CLOCKS_PER_SEC;
-
-      start = clock();
-        string_matching_kmp(text, N, pattern, M);
-      end = clock();
-      double time_kmp = (double)(end-start) / CLOCKS_PER_SEC;
-
-      naive += time_naive;
-      tmp += time_kmp;
-
-      free(text);
-      free(pattern);
-    }
-    naive = naive/iteration;
-    tmp = tmp/iteration;
-    fprintf(fp,",%f,%f",naive,tmp);
-  }
-  fclose(fp);
-
   fp = fopen("csv/performance_CHAR_400.csv", "w+");
   fprintf(fp,"N,Naive,KMP");
 
@@ -344,7 +156,7 @@ void performance_test(int iteration){
 
 int main(int argc, char **argv ){
   if (argc < 3){
-    printf("To run: test <1> <text> <N> <pattern> <M>\n or test <2> <N> <M>\n");
+    printf("To run: test <1> <text> <N> <pattern> <M>\n or test <2> <N> <M>\n or test <3> <number of iteration per N>\n");
     return 0;
   }
 
@@ -364,14 +176,20 @@ int main(int argc, char **argv ){
 	  return 0;
   }
   else if(mode == 2){
-    printf("To run: test <2> <N> <M>\n");
+    if (argc < 4){
+      printf("To run: test <2> <N> <M>\n");
+      return 0;
+    }
     int N = atoi(argv[2]);
     int M = atoi(argv[3]);
 
     stress_test(N, M);
   }
   else if (mode == 3){
-    printf("To run: test <3> <number of iteration per N> <>\n");
+    if (argc < 3){
+      printf("To run: test <3> <number of iteration per N>\n");
+      return 0;
+    }
     int iteration = atoi(argv[2]);
     performance_test(iteration);
   }
