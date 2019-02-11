@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "string_matching.h"
 
 void print_array(int *arr, int size){
@@ -57,6 +60,8 @@ void performance_test(int iteration){
   static char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   static char charset2[] = "ACTG";
   printf("Generating performance data!\n");
+
+  mkdir("csv",0777);
 
   FILE *fp;
   fp = fopen("csv/performance_CHAR_400.csv", "w+");
